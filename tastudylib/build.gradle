@@ -1,4 +1,10 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.testbintray_android'
+version = '1.0.0'
+
 
 android {
     compileSdkVersion 29
@@ -31,4 +37,52 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    pkg {
+        repo = 'testbintray_android'
+        name = 'studylib'
+
+        version {
+            name = '1.0.0-release'
+            desc = "just for test"
+            vcsTag = '1.0.0'
+        }
+
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/ChampionCatLi/TestBintray.git'
+        websiteUrl = 'https://github.com/ChampionCatLi/TestBintray'
+    }
+
+    configurations = ['archives']
+
+}
+
+
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs //source指定了源码位置
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//这里dependsOn意为仅当generateJavadocs完成后才开始本task，和ant脚本也是对应的。
+task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
 }
