@@ -1,0 +1,2 @@
+include ':SimpleDemo', ':tastudylib'
+rootProject.name='TestBintray'
