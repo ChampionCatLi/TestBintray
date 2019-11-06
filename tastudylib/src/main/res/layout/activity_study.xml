@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="hello"
+        android:background="@android:color/holo_blue_bright"
+        android:text="我是第二版本哦~~"
         android:textSize="18sp" />
 </LinearLayout>

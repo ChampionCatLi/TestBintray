@@ -3,7 +3,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.testbintray_android'
-version = '1.0.0'
+version = '1.0.1'
 
 
 android {
@@ -51,9 +51,9 @@ bintray {
         name = 'studylib'
 
         version {
-            name = '1.0.0-release'
-            desc = "just for test"
-            vcsTag = '1.0.0'
+            name = '1.0.1-release'
+            desc = "zhe shi yi  ge miao shu"
+            vcsTag = '1.0.1'
         }
 
         licenses = ['Apache-2.0']
